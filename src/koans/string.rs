@@ -4,7 +4,7 @@
 #[test]
 fn string_literals() {
     let string_slice = "Hello World";
-    assert!(string_slice == __);
+    assert!(string_slice == "Hello World");
 }
 
 // A String is a heap-allocated string in Rust.
@@ -14,7 +14,7 @@ fn growable_strings() {
     let mut string = String::new();
     string.push_str("Hello");
     string.push_str(" World");
-    assert!(string == __);
+    assert!(string == "Hello World");
 }
 
 // A string slice can be converted to a String using to_string
@@ -24,14 +24,14 @@ fn growable_strings() {
 fn growable_string_literals() {
     let mut mutable = "Foo".to_string();
     mutable.push_str("Bar");
-    assert!(mutable == __);
+    assert!(mutable == &"FooBar");
 }
 
 // A String can be coerced into a slice by prefacing it with a &
 #[test]
 fn string_to_slice() {
-    let string = "Can't stop me now".to_string();
-    let slice: &str = __;
+    let mut string: String = "Can't stop me now".to_string();//TODO voir si ça compile
+    let slice: &str = &string;
     assert!(slice == "Can't stop me now");
 }
 
@@ -41,7 +41,10 @@ fn strings_with_strs() {
     let hello = "Hello ".to_string();
     let world = "World";
 
-    assert!(hello + world == __);
+    assert!(hello + world == "Hello World");//TODO voir si ça compile
+    assert!(hello == "Hello");
+    assert!(hello + " toto" == "Hello toto");
+    
 }
 
 // But two Strings require a & to coorce the second String
@@ -50,8 +53,9 @@ fn strings_with_strings() {
     let hello = "Hello ".to_string();
     let world = "World!".to_string();
 
-    let hello_world = __ + __;
+    let hello_world: String = hello + world;//TODO compile?
     assert!(hello_world == "Hello World!")
+    println!("{:?}", hello);
 }
 
 // Strings cannot be indexed as they are UTF-8 encoded
